@@ -518,8 +518,11 @@ public class SketchFile extends BareSketchFile implements Parcelable {
 		//Update the code area text
 		code.setNoUndoText(getText());
 		//Update the code area selection
-		code.setSelection(getSelectionStart(), getSelectionEnd());
-		
+                try {
+		        code.setSelection(getSelectionStart(), getSelectionEnd());
+		} catch(IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                }
 		code.post(code::updateBracketMatch);
 		
 		scrollerX.post(() -> scrollerX.scrollTo(getScrollX(), 0));
